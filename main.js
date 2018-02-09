@@ -11,7 +11,7 @@ function visualize() {
     return;
   }
 
-  var gmRegex = /^\s*\[((\s+"(-|G|X|R)+",{0,1})+)\s+\]\s*$/i;
+  var gmRegex = /^\s*\[((\s*"(-|G|X|R)+",{0,1})+)\s*\]\s*$/i;
   if (!gmRegex.test(gameMap)) {
     alert('Format of "Game Map" is incorrect');
     return;
@@ -182,6 +182,29 @@ function drawQMap(map, data) {
           .text(function(d) {
             return parseInt(d * 100) / 100;
           });
+      } else {
+        var text = '';
+
+        switch (map[i][j]) {
+          case 'G':
+            text = '+1.0';
+            break;
+          case 'R':
+            text = '-1.0';
+            break;
+        }
+
+        g
+          .append('text')
+          .text(text)
+          .attr('x', function() {
+            return x + size / 2;
+          })
+          .attr('y', function() {
+            return y + size / 2 + 10;
+          })
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '20');
       }
     }
   }
